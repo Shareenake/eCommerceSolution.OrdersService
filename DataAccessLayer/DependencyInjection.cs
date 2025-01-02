@@ -1,6 +1,8 @@
 ﻿
 
 using Amazon.Util;
+using eCommerce.OrderService.DataAccessLayer.Repositories;
+using eCommerce.OrderService.DataAccessLayer.RepositoryContracts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
@@ -25,6 +27,8 @@ public static class DependencyInjection
             IMongoClient client=provider.GetRequiredService<IMongoClient>();
             return client.GetDatabase("OrdersDatabase");
         });
+
+        Services.AddScoped<IOrderRepository, OrderRepository>();
         return Services;
     }
 }

@@ -1,5 +1,7 @@
 ﻿
 
+using eCommerce.OrderService.BusinessLogicLayer.Validators;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,6 +11,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddBusinessLogicLayer(this IServiceCollection Services)
     { //TO DO: Add data Business LogicLayer services into the IOC container
+
+        Services.AddValidatorsFromAssemblyContaining<OrderAddRequestValidator>();
         return Services;
     }
 }
