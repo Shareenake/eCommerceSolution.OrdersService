@@ -22,5 +22,5 @@ public class Order
 
     [BsonRepresentation(MongoDB.Bson.BsonType.Double)]
     public  decimal TotalBill { get; set; }
-    public List<OrderItem> OrderItem { get; set; } = new List<OrderItem>();
+    public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 }
