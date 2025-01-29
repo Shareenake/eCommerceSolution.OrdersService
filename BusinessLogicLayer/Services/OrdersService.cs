@@ -8,10 +8,11 @@ using eCommerce.OrderService.DataAccessLayer.Entities;
 using eCommerce.OrderService.DataAccessLayer.RepositoryContracts;
 using FluentValidation;
 using FluentValidation.Results;
+using MongoDB.Driver;
 
 namespace eCommerce.OrderService.BusinessLogicLayer.Services;
 
-public class OrderService:IOrderService
+public class OrdersService:IOrderService
 {
     private readonly IOrderService _orderService;
     private readonly IOrderRepository _orderRepository;
@@ -20,7 +21,7 @@ public class OrderService:IOrderService
     private readonly IValidator<OrderUpdateRequest> _orderUpdateRequestValidator;
     private readonly IValidator<OrderItemAddRequest> _orderItemAddRequestValidator;
     private readonly IValidator<OrderItemUpdateRequest> _orderItemUpdateRequestValidator;
-    public OrderService(IOrderRepository orderRepository,IMapper mapper,
+    public OrdersService(IOrderRepository orderRepository,IMapper mapper,
         IValidator<OrderAddRequest> orderAddRequestValidator,
         IValidator<OrderUpdateRequest> orderUpdateRequestValidator,
         IValidator<OrderItemAddRequest> orderItemAddRequestValidator,
@@ -138,7 +139,47 @@ public class OrderService:IOrderService
 
         OrderResponse addedOrderResponse = _mapper.Map<OrderResponse>(updatedOrder);
         return addedOrderResponse;
+    }
 
+    public async Task<bool> DeleteOrder(Guid OrderId)
+    {
+        FilterDefinition<Order> filter = Builders<Order>.Filter.Eq
+            (temp => temp.OrderID, OrderId);
+        Order? existingOrder = await _orderRepository.GetOrderByCondition(filter);
+        if(existingOrder == null)
+        {
+               return false;
+        }
 
+        bool isDeleted = await _orderRepository.DeleteOrder(OrderId);
+        
+            return isDeleted;
+        
+    }
+
+    public async Task<OrderResponse?> GetOrderByCondition(FilterDefinition<Order> filter)
+    {
+        Order? order = await _orderRepository.GetOrderByCondition(filter);
+        if (order == null)
+        {
+            return null;
+        }
+        OrderResponse? orderResponse = _mapper.Map<OrderResponse>(order);
+        return orderResponse;
+    }
+
+    public async Task<List<OrderResponse?>> GetOrdersByCondition(FilterDefinition<Order> filter)
+    {
+        IEnumerable<Order?> orders = await _orderRepository.GetOrdersByCondition(filter);
+       
+        IEnumerable<OrderResponse?> orderResponse = _mapper.Map<IEnumerable<OrderResponse>>(orders);
+        return orderResponse.ToList();
+    }
+    public async Task<List<OrderResponse?>> GetOrders()
+    {
+        IEnumerable<Order?> orders = await _orderRepository.GetOrders();
+
+        IEnumerable<OrderResponse?> orderResponse = _mapper.Map<IEnumerable<OrderResponse>>(orders);
+        return orderResponse.ToList();
     }
 }
