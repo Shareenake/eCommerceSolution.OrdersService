@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersService", "OrdersService\OrdersService.csproj", "{7C69A09A-8414-4F9F-8B74-4CE9E9CA4B34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{291BA35C-93DF-4661-9857-753711D48452}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{291BA35C-93DF-4661-9857-753711D48452}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{3025FB71-0CF6-4268-9D31-57D45D89605C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{3025FB71-0CF6-4268-9D31-57D45D89605C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersMicroservice.API", "OrdersMicroservice.API\OrdersMicroservice.API.csproj", "{6C5AD8BC-6EB2-44C0-8A0A-1110A1BB6BAC}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{66424DD1-E27C-48E2-9E05-26B4CD16C899}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7C69A09A-8414-4F9F-8B74-4CE9E9CA4B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C69A09A-8414-4F9F-8B74-4CE9E9CA4B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C69A09A-8414-4F9F-8B74-4CE9E9CA4B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C69A09A-8414-4F9F-8B74-4CE9E9CA4B34}.Release|Any CPU.Build.0 = Release|Any CPU
 		{291BA35C-93DF-4661-9857-753711D48452}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{291BA35C-93DF-4661-9857-753711D48452}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{291BA35C-93DF-4661-9857-753711D48452}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,8 +25,19 @@ Global
 		{3025FB71-0CF6-4268-9D31-57D45D89605C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3025FB71-0CF6-4268-9D31-57D45D89605C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3025FB71-0CF6-4268-9D31-57D45D89605C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C5AD8BC-6EB2-44C0-8A0A-1110A1BB6BAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C5AD8BC-6EB2-44C0-8A0A-1110A1BB6BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C5AD8BC-6EB2-44C0-8A0A-1110A1BB6BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C5AD8BC-6EB2-44C0-8A0A-1110A1BB6BAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66424DD1-E27C-48E2-9E05-26B4CD16C899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66424DD1-E27C-48E2-9E05-26B4CD16C899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66424DD1-E27C-48E2-9E05-26B4CD16C899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66424DD1-E27C-48E2-9E05-26B4CD16C899}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BD0157B6-9E22-4AF5-8D84-C347B204A6AF}
 	EndGlobalSection
 EndGlobal

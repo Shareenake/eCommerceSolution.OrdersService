@@ -1,6 +1,7 @@
 ﻿
 
 using AutoMapper;
+using eCommerce.OrderService.BusinessLogicLayer.Client;
 using eCommerce.OrderService.BusinessLogicLayer.DTO;
 using eCommerce.OrderService.BusinessLogicLayer.ServiceContracts;
 using eCommerce.OrderService.BusinessLogicLayer.Validators;
@@ -21,17 +22,23 @@ public class OrdersService:IOrderService
     private readonly IValidator<OrderUpdateRequest> _orderUpdateRequestValidator;
     private readonly IValidator<OrderItemAddRequest> _orderItemAddRequestValidator;
     private readonly IValidator<OrderItemUpdateRequest> _orderItemUpdateRequestValidator;
-    public OrdersService(IOrderRepository orderRepository,IMapper mapper,
+    private readonly UserMicroServiceClient _userMicroServiceClient;
+    public OrdersService(IOrderRepository orderRepository,
+        IMapper mapper,
         IValidator<OrderAddRequest> orderAddRequestValidator,
         IValidator<OrderUpdateRequest> orderUpdateRequestValidator,
         IValidator<OrderItemAddRequest> orderItemAddRequestValidator,
-        IValidator<OrderItemUpdateRequest> orderItemUpdateRequestValidator)
+        IValidator<OrderItemUpdateRequest> orderItemUpdateRequestValidator,
+        UserMicroServiceClient userMicroServiceClient
+        )
     {
         _orderAddRequestValidator = orderAddRequestValidator;
         _orderUpdateRequestValidator = orderUpdateRequestValidator;
         _orderItemAddRequestValidator = orderItemAddRequestValidator;
         _orderItemUpdateRequestValidator = orderItemUpdateRequestValidator;
         _orderRepository = orderRepository;
+        _userMicroServiceClient = userMicroServiceClient;
+        _mapper = mapper;
 
     }
 
@@ -64,6 +71,13 @@ public class OrdersService:IOrderService
                 throw new ArgumentException(errors);
             }
 
+        }
+
+        //Logic for checking if UserID exists in Users MicroService
+        UserDTO? user = await _userMicroServiceClient.GetUserByUserId(orderAddRequest.UserID);
+        if (user == null)
+        {
+            throw new ArgumentException("Invalid User");
         }
 
         //Convert data from OrderAddRequest to Order
@@ -118,6 +132,13 @@ public class OrdersService:IOrderService
                 throw new ArgumentException(errors);
             }
 
+        }
+
+        //Logic for checking if UserID exists in Users MicroService
+        UserDTO? user = await _userMicroServiceClient.GetUserByUserId(orderUpdateRequest.UserID);
+        if (user == null)
+        {
+            throw new ArgumentException("Invalid User");
         }
 
         //Convert data from OrderUpdateRequest to Order
